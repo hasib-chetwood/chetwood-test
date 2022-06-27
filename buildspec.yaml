@@ -1,0 +1,25 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - cd api
+      - cd swagger
+      - aws s3 cp --recursive . "s3://$DEPLOYMENT_BUCKET/projects/$PROJECT_NAME/$APPLICATION_NAME/swagger"
+      - cd ../../postman
+      - aws s3 cp --recursive . "s3://$DEPLOYMENT_BUCKET/projects/$PROJECT_NAME/$APPLICATION_NAME/postman"
+      - cd ../api
+      - echo "Starting SAM Package"
+      - sam build
+      - sam package --output-template-file packaged.yaml --s3-bucket $DEPLOYMENT_BUCKET  --s3-prefix projects/$PROJECT_NAME/$APPLICATION_NAME/sam --force-upload
+
+  post_build:
+    commands:
+      - echo "SAM packaging completed"
+
+artifacts:
+  files:
+    - api/packaged.yaml
+    - app.yaml
+    - tag-configuration.json.tmpl
+  discard-paths: yes
+

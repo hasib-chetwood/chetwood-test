@@ -1,0 +1,14 @@
+general:
+    s3_bucket: chetwood-global-taskcat-bucket
+project:
+  name: test-cloudformation
+  regions:
+    - eu-west-1
+tests:
+  template-test:
+    template: ./api/packaged.yaml
+    parameters:
+      SwaggerSpecBucketName: chetwood-global-taskcat-bucket
+      Prefix: $[taskcat_random-string]
+      Stage: test
+

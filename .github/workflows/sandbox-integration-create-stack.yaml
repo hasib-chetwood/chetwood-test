@@ -1,0 +1,84 @@
+name: Create Sandbox Cloudformation Stack
+
+on:
+  pull_request:
+    branches:
+      - sandbox
+    types: [closed]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  sandbox-create-stack:
+    if: ${{ github.event.pull_request.merged == true }}
+    name: Deploy Cloudformation Stack to AWS
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install AWS Cli
+      id: install-aws-cli
+      uses: unfor19/install-aws-cli-action@v1.0.2
+      with:
+        version: 2
+        verbose: false
+        arch: amd64
+
+    - name: Configure Environment Variables
+      id: env-name
+      env:
+        REPO: ${{ github.repository }}
+      run: |
+        ENVIRONMENT=`echo $REPO | tr "/" "-"`
+        echo "Environment name: $ENVIRONMENT"
+        echo "::set-output name=environment::$ENVIRONMENT"
+        APP_NAME=`echo $ENVIRONMENT | sed 's/chetwoodfinancial-//g'`
+        echo "App name: $APP_NAME"
+        echo "::set-output name=appname::$APP_NAME"
+        PROJECT=`echo $APP_NAME | awk -F'-' '{print $1}'`
+        echo "Project name: $PROJECT"
+        echo "::set-output name=project::$PROJECT"
+        ACCOUNT_ID=`echo 161233504804`
+        echo "Sandbox Account Id: $ACCOUNT_ID"
+        echo "::set-output name=accountid::$ACCOUNT_ID"
+        REGION=`echo eu-west-1`
+        echo "AWS Region: $REGION"
+        echo "::set-output name=region::$REGION"
+        BUCKET=`echo snd-cloudformation-github-actions-bucket`
+        echo "Bucket Name: $BUCKET"
+        echo "::set-output name=bucket::$BUCKET"
+
+    - name: Configure AWS credentials
+      id: assume-role
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::${{ steps.env-name.outputs.accountid }}:role/snd-create-cf-stack-github-action-role
+        aws-region: ${{ steps.env-name.outputs.region }}
+        role-session-name: ${{ steps.env-name.outputs.environment }}-create-session
+
+    - name: Upload Swagger Spec
+      run: |
+        aws s3 cp --recursive ./api/swagger/ s3://${{ steps.env-name.outputs.bucket }}/projects/${{ steps.env-name.outputs.project }}/${{ steps.env-name.outputs.appname }}/swagger
+
+    - name: Sam Build
+      run: |
+        sam build --use-container -t ./api/template.yaml
+
+    - name: Sam Package
+      run: |
+        sam package -t ./api/template.yaml --output-template-file ./api/packaged.yaml --s3-bucket ${{ steps.env-name.outputs.bucket }} --region ${{ steps.env-name.outputs.region }}
+
+    - name: Deploy Cloudformation Template
+      id: create-stack
+      uses: aws-actions/aws-cloudformation-github-deploy@v1.0.4
+      with:
+        name: ${{ steps.env-name.outputs.environment }}-stack
+        template: ./api/packaged.yaml
+        no-fail-on-empty-changeset: "1"
+        capabilities: CAPABILITY_IAM, CAPABILITY_AUTO_EXPAND
+        parameter-overrides: >-
+          SwaggerSpecBucketName=${{ steps.env-name.outputs.bucket }}

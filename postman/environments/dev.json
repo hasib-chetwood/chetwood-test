@@ -1,0 +1,199 @@
+{
+	"id": "50bfd8a6-1469-4ff7-a8cb-8b72f1987272",
+	"name": "DEV",
+	"values": [
+		{
+			"key": "APIURI",
+			"value": "dev-cf",
+			"enabled": true
+		},
+		{
+			"key": "DIGID",
+			"value": "b77deba9-083b-4e78-8e1d-e3cd72aa0fd9",
+			"enabled": true
+		},
+		{
+			"key": "CARD_REF",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "DOC_URL",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "APIKEY",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PAT",
+			"value": "55571400000000000602",
+			"enabled": true
+		},
+		{
+			"key": "PAY_DATE",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "APPLI_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "CHECK_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PUSH_TOKEN",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PERSON_OBJ",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PERSON_ID",
+			"value": "f1b4d146-40ce-4ff0-b1c6-c6de6f897bbd",
+			"enabled": true
+		},
+		{
+			"key": "ACC_TOK",
+			"value": "55571400000000000602",
+			"enabled": true
+		},
+		{
+			"key": "CASE_REF",
+			"value": "a17deba9-083b-4e78-8e1d-e3cd72aa0fd9",
+			"enabled": true
+		},
+		{
+			"key": "EXPERIAN_REF",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PREREQVAR1",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PREREQVAR2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "SALESFORCE_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "SERVICELINK_ENV",
+			"value": "dev",
+			"enabled": true
+		},
+		{
+			"key": "event_expiration_datetime",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "LOAN_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "MANDATE_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PERSON_ID_LOAN",
+			"value": "269",
+			"enabled": true
+		},
+		{
+			"key": "DOCUMENT_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "title",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "firstName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "lastName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "houseNumber",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "addressLine1",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "townCity",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "county",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "postCode",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "emailAddresses",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "dateOfBirth",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "mobileNumber",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "middleNames",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "flat",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "timestamp_to_use",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-03-21T13:47:23.089Z",
+	"_postman_exported_using": "Postman/9.15.1-220321-0800"
+}

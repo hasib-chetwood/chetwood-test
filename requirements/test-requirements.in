@@ -1,0 +1,27 @@
+# constrain to dependencies in the base file.
+-c requirements.txt
+
+# Needed for formatting.
+black
+
+# Needed for code analysis.
+pylint
+mypy
+types-requests
+
+# Easier debugging.
+devtools[pygments]
+colorama
+python-json-logger
+
+# For unit tests
+pytest
+moto
+mock
+pytest-env
+pytest-cov
+simplejson
+requests-mock
+
+# Environment variable management
+python-dotenv

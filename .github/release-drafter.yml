@@ -1,0 +1,32 @@
+name-template: '$NEXT_PATCH_VERSION - Draft Release'
+tag-template: '$NEXT_PATCH_VERSION'
+categories:
+  - title: 'Features'
+    labels:
+      - 'feature'
+      - 'enhancement'
+  - title: 'Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  - title: 'Maintenance'
+    labels:
+      - 'chore'
+      - 'documentation'
+      - 'utilities'
+exclude-labels:
+  - 'skip-changelog'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+template: |
+  ## Release Summary
+
+  - X
+
+  ## Jira Issues
+
+  [CHET-](https://chetwood.atlassian.net/browse/CHET-)
+
+  ## Changes
+
+  $CHANGES

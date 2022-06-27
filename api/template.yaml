@@ -1,0 +1,12 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Creates a sample SSM Parameter for Parameter Store for test purposes.
+
+Resources:
+  SampleParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Description: Sample SSM Parameter for Parameter Store for test purposes
+      Name: '/sample/parameter'
+      Type: String
+      Value: 'test'

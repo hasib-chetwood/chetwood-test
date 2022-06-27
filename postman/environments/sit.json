@@ -1,0 +1,145 @@
+{
+	"id": "6c196a23-8ff9-4bd7-b1ae-5e0d4ffe4a63",
+	"name": "SIT",
+	"values": [
+		{
+			"key": "APIKEY",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "DIGID",
+			"value": "57293aae-6568-4b44-9df4-239e6df266da",
+			"enabled": true
+		},
+		{
+			"key": "APIURI",
+			"value": "sit-cf",
+			"enabled": true
+		},
+		{
+			"key": "CARD_REF",
+			"value": "55571400000099049454",
+			"enabled": true
+		},
+		{
+			"key": "PERSON_ID",
+			"value": "8b7ed048-5f87-49fb-a40b-512f8069a36a",
+			"enabled": true
+		},
+		{
+			"key": "DOC_ID",
+			"value": "55637cb8-6274-4bb7-ae27-a4d85b217a44",
+			"enabled": true
+		},
+		{
+			"key": "DOC_URL",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PAY_DATE",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PUSH_TOKEN",
+			"value": "1",
+			"enabled": true
+		},
+		{
+			"key": "PERSON_OBJ",
+			"value": "{}",
+			"enabled": true
+		},
+		{
+			"key": "QUOTE_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "ACC_TOK",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "CASE_REF",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "CASE_REF_DEC",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "APPLICANT_ID",
+			"value": "6b3d947e-dc31-40d2-9969-93ca67bdfec1",
+			"enabled": true
+		},
+		{
+			"key": "APPLICATION_ID",
+			"value": "123456789",
+			"enabled": true
+		},
+		{
+			"key": "CHECK_ID",
+			"value": "0d5446bd-dfc5-4eee-9a18-406ab249c8a4",
+			"enabled": true
+		},
+		{
+			"key": "CHECK_CORRELATION_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "fullDigId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "CARD_TOK",
+			"value": "55571400000099003493",
+			"enabled": true
+		},
+		{
+			"key": "EXPERIAN_REF",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "SALESFORCE_ID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PREREQVAR1",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "PREREQVAR2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "SERVICELINK_ENV",
+			"value": "uat",
+			"enabled": true
+		},
+		{
+			"key": "ACC_NUM",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "MANDATE_ID",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-03-21T13:47:32.698Z",
+	"_postman_exported_using": "Postman/9.15.1-220321-0800"
+}

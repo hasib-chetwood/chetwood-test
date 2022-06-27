@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Defines a Reference to a Serverless Application stored in AWS SAR (Serverless Application Repository)
+
+Parameters:
+  VersionNumber:
+    Type: String
+    Description: Severless Application semantic version number. This parameter should always be set with a default value and passed to the Serverless Application resource.
+    Default: 0.1.0
+  Stage:
+    Type: String
+    Description: The parameter is overriden at deployment - no need to provide a value here
+
+Resources:
+  # PLEASE ENTER YOUR APPLICATION SPECIFIC INFO
+  YourApplicationName:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location:
+        ApplicationId: arn:aws:serverlessrepo:eu-west-1:111634274187:applications/your-application-name-in-sar
+        SemanticVersion: !Ref VersionNumber
+      Parameters:
+        Stage: !Ref Stage

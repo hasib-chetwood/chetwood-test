@@ -1,0 +1,68 @@
+# This is a basic workflow to test AWS CloudFormation Templates.
+
+name: CloudFormation Testing
+
+on:
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  taskcat:
+    name: Run taskcat tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: aws-actions/setup-sam@v1
+
+      - name: Configure Environment Variables
+        id: env-name
+        env:
+          REPO: ${{ github.repository }}
+        run: |
+          ENVIRONMENT=`echo $REPO | tr "/" "-"`
+          echo "Environment name: $ENVIRONMENT"
+          echo "::set-output name=environment::$ENVIRONMENT"
+          APP_NAME=`echo $ENVIRONMENT | sed 's/chetwoodfinancial-//g'`
+          echo "App name: $APP_NAME"
+          echo "::set-output name=appname::$APP_NAME"
+          PROJECT=`echo $APP_NAME | awk -F'-' '{print $1}'`
+          echo "Project name: $PROJECT"
+          echo "::set-output name=project::$PROJECT"
+          ACCOUNT_ID=`echo 520911852130`
+          echo "Sandbox Account Id: $ACCOUNT_ID"
+          echo "::set-output name=accountid::$ACCOUNT_ID"
+          BUCKET=`echo chetwood-global-taskcat-bucket`
+          echo "Bucket Name: $BUCKET"
+          echo "::set-output name=bucket::$BUCKET"
+
+      - name: Sam Build
+        run: |
+          sam build --use-container -t ./api/template.yaml
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ steps.env-name.outputs.accountid }}:role/taskcat-github-action-role
+          aws-region: eu-west-1
+          role-session-name: taskcat-session
+
+      - name: Handle Swagger Specification
+        run: |
+          aws s3 cp --recursive ./api/swagger "s3://${{ steps.env-name.outputs.bucket }}/projects/${{ steps.env-name.outputs.project }}/${{ steps.env-name.outputs.appname }}/swagger"
+
+      - name: Sam Package
+        run: |
+          sam package -t ./api/template.yaml --output-template-file ./api/packaged.yaml --s3-bucket ${{ steps.env-name.outputs.bucket }} --region eu-west-1
+
+      - name: Run taskcat test run
+        uses: ShahradR/action-taskcat@v1
+        with:
+          commands: test run
+          update_taskcat: true
+          update_cfn_lint: true

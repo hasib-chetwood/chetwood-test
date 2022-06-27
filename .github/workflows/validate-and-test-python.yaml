@@ -1,0 +1,53 @@
+# This is a basic workflow to validate Python code.
+
+name: Python Linting & Testing
+
+on:
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  python-validate-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Cache dependencies.
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-${{ hashFiles('services/utils-lambdalayer/package/python/setup.py') }}-${{ hashFiles('requirements/workflow-requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements/workflow-requirements.txt
+
+      - name: Checkout Lambda Layer
+        uses: actions/checkout@v3
+        with:
+          repository: chetwoodfinancial/core-lambda-layer
+          token: ${{ secrets.LAMBDA_LAYER_PAT }}
+          ref: master
+          path: lambda-layer
+
+      - name: Move Modules
+        run: |
+          mv lambda-layer/function/package/python/* api/src
+          cd api/src
+          ls -l
+
+      - name: Linting with Pylint
+        run: pylint $(git ls-files --no-empty-directory --recurse-submodules 'api/src/*.py')
+
+      - name: Testing with Pytest
+        run: PYTHONPATH="$PYTHONPATH:$(pwd):$(pwd)/src" pytest -vv --cov=src/ tests/unit/ --cov-fail-under=1
+        working-directory: api/
+
+      - name: Check formatting with black
+        run: black --check src tests

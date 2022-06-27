@@ -1,0 +1,33 @@
+# constrain to dependencies in the base file.
+-c requirements.txt
+
+# Needed for APIs
+chalice
+
+# boto3 you know and love
+boto3
+
+# Needed for formatting.
+black
+
+# Needed for code analysis.
+pylint
+
+# Tracing for performance.
+aws-xray-sdk
+
+# Used in functions.
+requests
+
+# For unit tests
+pytest
+moto
+mock
+pytest-env
+coverage==4.5.4
+pydantic
+simplejson
+coverage-badge
+requests-mock
+python-json-logger
+pycountry
